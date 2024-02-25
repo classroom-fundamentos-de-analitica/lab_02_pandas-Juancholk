@@ -22,7 +22,7 @@ def pregunta_01():
     40
 
     """
-    return
+    return tbl0.shape[0]
 
 
 def pregunta_02():
@@ -33,7 +33,7 @@ def pregunta_02():
     4
 
     """
-    return
+    return tbl0.shape[1]
 
 
 def pregunta_03():
@@ -50,7 +50,8 @@ def pregunta_03():
     Name: _c1, dtype: int64
 
     """
-    return
+    
+    return tbl0.groupby('_c1').size()
 
 
 def pregunta_04():
@@ -65,9 +66,8 @@ def pregunta_04():
     E    4.785714
     Name: _c2, dtype: float64
     """
-    return
-
-
+    tbl0['_c2'] = tbl0['_c2'].astype(float)
+    return tbl0.groupby('_c1')['_c2'].mean()
 def pregunta_05():
     """
     Calcule el valor máximo de _c2 por cada letra en la columna _c1 del archivo
@@ -82,7 +82,9 @@ def pregunta_05():
     E    9
     Name: _c2, dtype: int64
     """
-    return
+    tbl0['_c2'] = tbl0['_c2'].astype(int)
+    return tbl0.groupby('_c1')['_c2'].max()
+
 
 
 def pregunta_06():
@@ -94,7 +96,9 @@ def pregunta_06():
     ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 
     """
-    return
+    tbl1['_c4'] = tbl1['_c4'].str.upper()
+    return sorted(tbl1['_c4'].unique())
+
 
 
 def pregunta_07():
@@ -110,7 +114,8 @@ def pregunta_07():
     E    67
     Name: _c2, dtype: int64
     """
-    return
+    return tbl0.groupby('_c1')['_c2'].sum()
+
 
 
 def pregunta_08():
@@ -128,7 +133,10 @@ def pregunta_08():
     39   39   E    5  1998-01-26    44
 
     """
-    return
+    tbl0['suma'] = tbl0['_c0'] + tbl0['_c2']
+
+    return tbl0
+
 
 
 def pregunta_09():
@@ -146,7 +154,11 @@ def pregunta_09():
     39   39   E    5  1998-01-26  1998
 
     """
-    return
+    #crea una nueva columna con el año de la fecha usando el metodo split
+    tbl0['year'] = tbl0['_c3'].str.split('-').str[0]
+
+    return tbl0
+
 
 
 def pregunta_10():
@@ -163,7 +175,8 @@ def pregunta_10():
     3   D                  1:2:3:5:5:7
     4   E  1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
-    return
+    tbl0['_c2'] = tbl0['_c2'].astype(str)
+    return tbl0.groupby('_c1')['_c2'].apply(lambda x: ':'.join(x)).reset_index()
 
 
 def pregunta_11():
@@ -182,7 +195,7 @@ def pregunta_11():
     38   38      d,e
     39   39    a,d,f
     """
-    return
+    return tbl1.groupby('_c0')['_c4'].apply(lambda x: ','.join(x)).reset_index()
 
 
 def pregunta_12():
@@ -200,7 +213,8 @@ def pregunta_12():
     38   38                    eee:0,fff:9,iii:2
     39   39                    ggg:3,hhh:8,jjj:5
     """
-    return
+    tbl2['_c5'] = tbl2['_c5a'] + ':' + tbl2['_c5b'].astype(str)
+    return tbl2.groupby('_c0')['_c5'].apply(lambda x: ','.join(x)).reset_index()
 
 
 def pregunta_13():
@@ -217,4 +231,4 @@ def pregunta_13():
     E    275
     Name: _c5b, dtype: int64
     """
-    return
+    return pd.merge(tbl0, tbl2, on='_c0').groupby('_c1')['_c5b'].sum()
