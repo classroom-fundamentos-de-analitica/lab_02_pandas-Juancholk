@@ -174,11 +174,11 @@ def pregunta_10():
     3   D                  1:2:3:5:5:7
     4   E  1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
-    tbl0['_c2'] = tbl0['_c2'].astype(str)
-    #ordenar una columna ascendente y agrupar los valores separados por ':' y resetear el indice
+    tbl0['_c0'] = tbl0['_c2'].astype(str)
 
-    return tbl0.groupby('_c1')['_c2'].apply(lambda x: ':'.join(sorted(map(str, x)))).reset_index()
 
+    return tbl0.groupby('_c1')['_c2'].apply(lambda x: ':'.join(sorted(map(str, x))))
+print(pregunta_10())
 def pregunta_11():
     """
     Construya una tabla que contenga _c0 y una lista separada por ',' de los valores de
