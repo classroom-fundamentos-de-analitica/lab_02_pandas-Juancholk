@@ -175,8 +175,9 @@ def pregunta_10():
     4   E  1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
     tbl0['_c2'] = tbl0['_c2'].astype(str)
-    return tbl0.groupby('_c1')['_c2'].apply(lambda x: ':'.join(x)).reset_index()
+    #ordenar una columna ascendente y agrupar los valores separados por ':' y resetear el indice
 
+    return tbl0.groupby('_c1')['_c2'].apply(lambda x: ':'.join(sorted(map(str, x)))).reset_index()
 
 def pregunta_11():
     """
@@ -194,8 +195,7 @@ def pregunta_11():
     38   38      d,e
     39   39    a,d,f
     """
-    return tbl1.groupby('_c0')['_c4'].apply(lambda x: ','.join(x)).reset_index()
-
+    return tbl1.groupby('_c0')['_c4'].apply(lambda x: ','.join(sorted(x))).reset_index()
 
 def pregunta_12():
     """
@@ -213,8 +213,7 @@ def pregunta_12():
     39   39                    ggg:3,hhh:8,jjj:5
     """
     tbl2['_c5'] = tbl2['_c5a'] + ':' + tbl2['_c5b'].astype(str)
-    return tbl2.groupby('_c0')['_c5'].apply(lambda x: ','.join(x)).reset_index()
-
+    return tbl2.groupby('_c0')['_c5'].apply(lambda x: ','.join(sorted(x))).reset_index()
 
 def pregunta_13():
     """
