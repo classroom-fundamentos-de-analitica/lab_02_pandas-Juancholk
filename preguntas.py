@@ -178,7 +178,6 @@ def pregunta_10():
 
 
     return tbl0.groupby('_c1')['_c2'].apply(lambda x: ':'.join(sorted(map(str, x))))
-print(pregunta_10())
 def pregunta_11():
     """
     Construya una tabla que contenga _c0 y una lista separada por ',' de los valores de
